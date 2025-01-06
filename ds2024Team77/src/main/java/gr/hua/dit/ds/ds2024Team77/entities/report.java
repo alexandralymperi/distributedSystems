@@ -3,25 +3,31 @@ package gr.hua.dit.ds.ds2024Team77.entities;
 import jakarta.persistence.*;
 import java.util.Date;
 
+@Entity
 public class report {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
 
-    private Integer reporterId;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "reporter_id")
+    private users reporter;
 
+    @Column(nullable = false)
     private String complaint;
 
+    @Column
     private Date date;
 
+    @Column
     private String status;
 
-    public report(Integer id, Integer reporterId, String complaint, Date date, String status) {
-        Id = id;
-        this.reporterId = reporterId;
+    public report(users reporter, String complaint, Date date, String status) {
+        this.reporter = reporter;
         this.complaint = complaint;
         this.date = date;
-        this.status = status;
+        this.status = "Pending";
     }
 
     public report() {
@@ -36,12 +42,12 @@ public class report {
         Id = id;
     }
 
-    public Integer getReporterId() {
-        return reporterId;
+    public users getReporter() {
+        return reporter;
     }
 
-    public void setReporterId(Integer reporterId) {
-        this.reporterId = reporterId;
+    public void setReporter(users reporter) {
+        this.reporter = reporter;
     }
 
     public String getComplaint() {
@@ -56,8 +62,8 @@ public class report {
         return date;
     }
 
-    public void setdate(Date sate) {
-        this.date = sate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getStatus() {

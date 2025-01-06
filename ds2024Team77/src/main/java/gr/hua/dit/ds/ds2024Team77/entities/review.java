@@ -2,15 +2,27 @@ package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
 
+
+@Entity
 public class review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Integer Id;
 
+    @Column(nullable = false)
     private int value;
 
+    @Column
     private String comments;
 
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "reviewer_id")
     private users reviewer;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "reviewee_id")
     private users reviewee;
 
     public review(Integer id, int value, String comments, users reviewer, users reviewee) {
@@ -19,6 +31,10 @@ public class review {
         this.comments = comments;
         this.reviewer = reviewer;
         this.reviewee = reviewee;
+    }
+
+    public review() {
+
     }
 
     public Integer getId() {
@@ -60,4 +76,5 @@ public class review {
     public void setReviewee(users reviewee) {
         this.reviewee = reviewee;
     }
+
 }

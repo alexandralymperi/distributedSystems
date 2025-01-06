@@ -1,26 +1,51 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
-import java.util.ArrayList;
+import jakarta.persistence.*;
 
+import java.util.List;
+
+@Entity
 public class project {
 
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    private Integer Id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column
     private String description;
+
+    @Column(nullable = false)
     private float pay;
+
+    @Column
     private String status;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id")
     private users customer;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "freelancer_id")
     private users freelancer;
-    private ArrayList<users> applicants;
 
+    @OneToMany(mappedBy = "project", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
+    private List<projectApplications> applications;
 
-    public project(String title, String description, float pay, String status, users customer, users freelancer, ArrayList<users> applicants) {
+    public project(String title, String description, float pay, String status, users customer, users freelancer) {
         this.title = title;
         this.description = description;
         this.pay = pay;
-        this.status = status;
+        this.status = "inactive";
         this.customer = customer;
         this.freelancer = freelancer;
-        this.applicants = applicants;
+    }
+
+    public project() {
+
     }
 
     public String getTitle() {
@@ -71,11 +96,11 @@ public class project {
         this.freelancer = freelancer;
     }
 
-    public ArrayList<users> getApplicants() {
-        return applicants;
+    public List<projectApplications> getApplications() {
+        return applications;
     }
 
-    public void setApplicants(ArrayList<users> applicants) {
-        this.applicants = applicants;
+    public void setApplications(List<projectApplications> applications) {
+        this.applications = applications;
     }
 }

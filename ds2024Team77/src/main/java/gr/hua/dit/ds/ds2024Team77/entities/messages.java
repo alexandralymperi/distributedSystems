@@ -1,20 +1,43 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
-import java.awt.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
+
+@Entity
 public class messages {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer Id;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "sender_id")
     private users sender;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "receiver_id")
     private users receiver;
+
+    @Column(nullable = false)
     private String contents;
+
+    @Column
+    private String status;
+
+    @Column
     private Date date;
 
-    public messages(users sender, users receiver, String contents, Date date) {
+    public messages(users sender, users receiver, String contents, String status, Date date) {
         this.sender = sender;
         this.receiver = receiver;
         this.contents = contents;
+        this.status = "Delivered";
         this.date = date;
+    }
+
+    public messages() {
+
     }
 
     public users getSender() {
@@ -41,11 +64,24 @@ public class messages {
         this.contents = contents;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return  contents + '\'' ;
     }
 }
