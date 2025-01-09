@@ -1,6 +1,9 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -11,16 +14,20 @@ public class users {
     @Column
     private Integer Id;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String name;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String surname;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotBlank
     private String email;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String password;
 
     @Column

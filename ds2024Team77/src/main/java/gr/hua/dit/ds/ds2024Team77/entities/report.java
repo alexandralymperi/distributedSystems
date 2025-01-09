@@ -1,6 +1,9 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -14,10 +17,12 @@ public class report {
     @JoinColumn(name = "reporter_id")
     private users reporter;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String complaint;
 
     @Column
+    @NotNull
     private Date date;
 
     @Column
