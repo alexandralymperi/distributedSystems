@@ -1,6 +1,8 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Date;
 
 
@@ -13,13 +15,14 @@ public class messages {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "sender_id")
-    private users sender;
+    private naUser sender;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "receiver_id")
-    private users receiver;
+    private naUser receiver;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String contents;
 
     @Column
@@ -28,7 +31,7 @@ public class messages {
     @Column
     private Date date;
 
-    public messages(users sender, users receiver, String contents, String status, Date date) {
+    public messages(naUser sender, naUser receiver, String contents, String status, Date date) {
         this.sender = sender;
         this.receiver = receiver;
         this.contents = contents;
@@ -40,19 +43,19 @@ public class messages {
 
     }
 
-    public users getSender() {
+    public naUser getSender() {
         return sender;
     }
 
-    public void setSender(users sender) {
+    public void setSender(naUser sender) {
         this.sender = sender;
     }
 
-    public users getReceiver() {
+    public naUser getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(users receiver) {
+    public void setReceiver(naUser receiver) {
         this.receiver = receiver;
     }
 

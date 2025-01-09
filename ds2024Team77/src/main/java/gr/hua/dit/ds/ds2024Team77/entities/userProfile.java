@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table
@@ -12,7 +13,7 @@ public class userProfile {
     private Integer Id;
 
     @OneToOne(mappedBy = "profile", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    private users user;
+    private naUser user;
 
     @Column
     private String bio;
@@ -20,10 +21,11 @@ public class userProfile {
     @Column
     private String phoneNumber;
 
-    @Column(length = 100)
+    @Column
+    @Size(max = 50)
     private String address;
 
-    public userProfile(users user, String bio, String phoneNumber, String address) {
+    public userProfile(naUser user, String bio, String phoneNumber, String address) {
         this.user = user;
         this.bio = bio;
         this.phoneNumber = phoneNumber;
@@ -34,11 +36,11 @@ public class userProfile {
 
     }
 
-    public users getUser() {
+    public naUser getUser() {
         return user;
     }
 
-    public void setUser(users user) {
+    public void setUser(naUser user) {
         this.user = user;
     }
 

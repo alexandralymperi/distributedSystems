@@ -1,7 +1,7 @@
 package gr.hua.dit.ds.ds2024Team77.dao;
 
 
-import gr.hua.dit.ds.ds2024Team77.entities.users;
+import gr.hua.dit.ds.ds2024Team77.entities.naUser;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
@@ -16,18 +16,18 @@ public class usersDAOImpl implements usersDao {
 
     @Override
     @Transactional
-    public List<users> getUsers() {
-        TypedQuery<users> query = entityManager.createQuery("from users", users.class);
+    public List<naUser> getUsers() {
+        TypedQuery<naUser> query = entityManager.createQuery("from naUser", naUser.class);
         return query.getResultList();
     }
 
     @Override
-    public users getUser(Integer user_id) {
-        return entityManager.find(users.class, user_id);
+    public naUser getUser(Integer user_id) {
+        return entityManager.find(naUser.class, user_id);
     }
 
     @Override
-    public void saveUser(users user) {
+    public void saveUser(naUser user) {
 
     }
 

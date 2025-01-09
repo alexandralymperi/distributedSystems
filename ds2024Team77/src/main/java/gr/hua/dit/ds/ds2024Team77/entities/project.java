@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -16,26 +17,29 @@ public class project {
     private String title;
 
     @Column
+    @NotBlank
     private String description;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private float pay;
 
     @Column
+    @NotBlank
     private String status;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
-    private users customer;
+    private naUser customer;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "freelancer_id")
-    private users freelancer;
+    private naUser freelancer;
 
     @OneToMany(mappedBy = "project", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
     private List<projectApplications> applications;
 
-    public project(String title, String description, float pay, String status, users customer, users freelancer) {
+    public project(String title, String description, float pay, String status, naUser customer, naUser freelancer) {
         this.title = title;
         this.description = description;
         this.pay = pay;
@@ -80,19 +84,19 @@ public class project {
         this.status = status;
     }
 
-    public users getCustomer() {
+    public naUser getCustomer() {
         return customer;
     }
 
-    public void setCustomer(users customer) {
+    public void setCustomer(naUser customer) {
         this.customer = customer;
     }
 
-    public users getFreelancer() {
+    public naUser getFreelancer() {
         return freelancer;
     }
 
-    public void setFreelancer(users freelancer) {
+    public void setFreelancer(naUser freelancer) {
         this.freelancer = freelancer;
     }
 

@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -11,7 +12,8 @@ public class review {
     @Column
     private Integer Id;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private int value;
 
     @Column
@@ -19,13 +21,13 @@ public class review {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "reviewer_id")
-    private users reviewer;
+    private naUser reviewer;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "reviewee_id")
-    private users reviewee;
+    private naUser reviewee;
 
-    public review(Integer id, int value, String comments, users reviewer, users reviewee) {
+    public review(Integer id, int value, String comments, naUser reviewer, naUser reviewee) {
         Id = id;
         this.value = value;
         this.comments = comments;
@@ -61,19 +63,19 @@ public class review {
         this.comments = comments;
     }
 
-    public users getReviewer() {
+    public naUser getReviewer() {
         return reviewer;
     }
 
-    public void setReviewer(users reviewer) {
+    public void setReviewer(naUser reviewer) {
         this.reviewer = reviewer;
     }
 
-    public users getReviewee() {
+    public naUser getReviewee() {
         return reviewee;
     }
 
-    public void setReviewee(users reviewee) {
+    public void setReviewee(naUser reviewee) {
         this.reviewee = reviewee;
     }
 

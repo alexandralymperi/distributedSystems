@@ -15,7 +15,7 @@ public class report {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "reporter_id")
-    private users reporter;
+    private naUser reporter;
 
     @Column
     @NotBlank
@@ -26,9 +26,10 @@ public class report {
     private Date date;
 
     @Column
+    @NotBlank
     private String status;
 
-    public report(users reporter, String complaint, Date date, String status) {
+    public report(naUser reporter, String complaint, Date date, String status) {
         this.reporter = reporter;
         this.complaint = complaint;
         this.date = date;
@@ -47,11 +48,11 @@ public class report {
         Id = id;
     }
 
-    public users getReporter() {
+    public naUser getReporter() {
         return reporter;
     }
 
-    public void setReporter(users reporter) {
+    public void setReporter(naUser reporter) {
         this.reporter = reporter;
     }
 
