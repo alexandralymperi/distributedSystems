@@ -13,6 +13,10 @@ public class role {
     @Column
     private String name;
 
+    public role(){
+
+    }
+
     public role(String name) {
         this.name = name;
     }
