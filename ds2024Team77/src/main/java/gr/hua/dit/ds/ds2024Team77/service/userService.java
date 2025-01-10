@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//TODO updateUserRole
 @Service
 public class userService implements UserDetailsService {
 
@@ -72,6 +71,12 @@ public class userService implements UserDetailsService {
 
     @Transactional
     public Object getUsers(){ return userRepository.findAll(); }
+
+    @Transactional
+    public Integer updateUser(user user){
+        user = userRepository.save(user);
+        return user.getId();
+    }
 
 }
 

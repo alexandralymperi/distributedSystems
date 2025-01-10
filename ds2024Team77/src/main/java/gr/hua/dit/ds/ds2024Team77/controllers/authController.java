@@ -19,7 +19,7 @@ public class authController {
     public void setup() {
         role role_user = new role("BASIC_USER");
         role roleFreelancer = new role("FREELANCER");
-        role role_admin = new role("ROLE_ADMIN");
+        role role_admin = new role("ADMIN");
 
         roleRepository.updateOrInsert(role_user);
         roleRepository.updateOrInsert(roleFreelancer);
