@@ -28,11 +28,4 @@ public class securityConfig {
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return encoder;
-    }
-
 }

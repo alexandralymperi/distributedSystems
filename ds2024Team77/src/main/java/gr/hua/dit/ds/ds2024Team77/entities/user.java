@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+//general user format + admin
 @Entity
 @Table(name = "users",
         uniqueConstraints = {

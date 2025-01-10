@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
+//non-admin users
 @Entity
 public class naUser {
 
@@ -24,10 +25,6 @@ public class naUser {
     @Column(unique = true)
     @NotBlank
     private String email;
-
-    @Column
-    @NotBlank
-    private String password;
 
     @Column
     private String role;
@@ -63,11 +60,10 @@ public class naUser {
     @JoinColumn(name = "user_profile_id", referencedColumnName = "Id")
     private userProfile profile;
 
-    public naUser(String name, String surname, String email, String password, int penaltyPoints) {
+    public naUser(String name, String surname, String email, int penaltyPoints) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.password = password;
         this.role = "basic";
         this.penaltyPoints = penaltyPoints;
     }
@@ -113,14 +109,6 @@ public class naUser {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {

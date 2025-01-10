@@ -17,17 +17,17 @@ public class naUserService {
     }
 
     @Transactional
-    public List<naUser> getUsers(){
+    public List<naUser> getnaUsers(){
         return naUserRepository.findAll();
     }
 
     @Transactional
-    public naUser getUser(Integer user_id){
+    public naUser getnaUser(Integer user_id){
         return naUserRepository.findById(user_id).get();
     }
 
     @Transactional
-    public void saveUser(naUser user){
+    public void savenaUser(naUser user){
         naUserRepository.save(user);
     }
 }
