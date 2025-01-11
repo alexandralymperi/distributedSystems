@@ -1,16 +1,15 @@
 package gr.hua.dit.ds.ds2024Team77.service;
 
-import gr.hua.dit.ds.ds2024Team77.entities.role;
-import gr.hua.dit.ds.ds2024Team77.repository.roleRepository;
-import gr.hua.dit.ds.ds2024Team77.repository.userRepository;
+import gr.hua.dit.ds.ds2024Team77.entities.Role;
+import gr.hua.dit.ds.ds2024Team77.entities.User;
+import gr.hua.dit.ds.ds2024Team77.repository.RoleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import gr.hua.dit.ds.ds2024Team77.entities.user;
+import gr.hua.dit.ds.ds2024Team77.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,28 +17,36 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class userService implements UserDetailsService {
+public class UserService {
 
-    private userRepository userRepository;
-    private roleRepository roleRepository;
+    private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
-    public userService(userRepository userRepository, roleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional
-    public Integer saveUser(user user){
+    public User getUser(Integer user_id){
+        return userRepository.findById(user_id).get();
+    }
+
+    @Transactional
+    public Object getUsers(){ return userRepository.findAll(); }
+
+    @Transactional
+    public Integer saveUser(User user){
 
         String pswd = user.getPassword();
         String encodedPswd = passwordEncoder.encode(pswd);
         user.setPassword(encodedPswd);
 
-        role role = roleRepository.findByName("BASIC_USER")
+        Role role = roleRepository.findByName("BASIC_USER")
                 .orElseThrow(() -> new RuntimeException("Error: Role not found."));
-        Set<role> userRoles = new HashSet<>();
+        Set<Role> userRoles = new HashSet<>();
         userRoles.add(role);
         user.setRoles(userRoles);
 
@@ -47,16 +54,15 @@ public class userService implements UserDetailsService {
         return user.getId();
     }
 
-    @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<user> opt = userRepository.findByUsername(username);
+        Optional<User> opt = userRepository.findByUsername(username);
 
         if(opt.isEmpty()){
             throw new UsernameNotFoundException("User with email: " +username+" was not found.");
         }else{
-            user user = opt.get();
+            User user = opt.get();
             return new org.springframework.security.core.userdetails.User(
                     user.getEmail(),
                     user.getPassword(),
@@ -70,13 +76,9 @@ public class userService implements UserDetailsService {
     }
 
     @Transactional
-    public Object getUsers(){ return userRepository.findAll(); }
-
-    @Transactional
-    public Integer updateUser(user user){
+    public Integer updateUser(User user){
         user = userRepository.save(user);
         return user.getId();
     }
 
 }
-

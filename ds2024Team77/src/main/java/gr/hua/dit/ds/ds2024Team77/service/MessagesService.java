@@ -2,31 +2,31 @@ package gr.hua.dit.ds.ds2024Team77.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import gr.hua.dit.ds.ds2024Team77.repository.messagesRepository;
-import gr.hua.dit.ds.ds2024Team77.entities.messages;
+import gr.hua.dit.ds.ds2024Team77.repository.MessagesRepository;
+import gr.hua.dit.ds.ds2024Team77.entities.Messages;
 import java.util.List;
 
 @Service
-public class messagesService {
+public class MessagesService {
 
-    private messagesRepository messagesRepository;
+    private MessagesRepository messagesRepository;
 
-    public messagesService(gr.hua.dit.ds.ds2024Team77.repository.messagesRepository messagesRepository) {
+    public MessagesService(MessagesRepository messagesRepository) {
         this.messagesRepository = messagesRepository;
     }
 
     @Transactional
-    public List<messages> getMessages(){
+    public List<Messages> getMessages(){
         return messagesRepository.findAll();
     }
 
     @Transactional
-    public messages getMessages(Integer message_id){
+    public Messages getMessages(Integer message_id){
         return messagesRepository.findById(message_id).get();
     }
 
     @Transactional
-    public void saveMessages(messages messages){
+    public void saveMessages(Messages messages){
         messagesRepository.save(messages);
     }
 }

@@ -1,18 +1,31 @@
 package gr.hua.dit.ds.ds2024Team77.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //non-admin users
 @Entity
-public class naUser {
+@Table(	name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Integer Id;
+
+    @NotBlank
+    @Size(max=20)
+    private String username;
 
     @Column
     @NotBlank
@@ -24,58 +37,55 @@ public class naUser {
 
     @Column(unique = true)
     @NotBlank
+    @Email
     private String email;
 
-    @Column
-    private String role;
+    @NotBlank
+    @Size(max = 25)
+    private String password;
 
-    @Column
-    private int penaltyPoints;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "userRoles",
+            joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "sender", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<messages> sentMessages;
+    private List<Messages> sentMessages;
 
     @OneToMany(mappedBy = "receiver", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<messages> receivedMessages;
+    private List<Messages> receivedMessages;
 
     @OneToMany(mappedBy = "reporter", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<report> reortsMade;
+    private List<Report> reportsMade;
 
     @OneToMany(mappedBy = "reviewer", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<review> reportsLeft;
+    private List<Review> reportsLeft;
 
     @OneToMany(mappedBy = "reviewee", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<review> reportsConcerning;
+    private List<Review> reportsConcerning;
 
     @OneToMany(mappedBy = "applicant", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.PERSIST})
-    private List<projectApplications> applications;
+    private List<ProjectApplications> applications;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_profile_id", referencedColumnName = "Id")
-    private userProfile profile;
+    private UserProfile profile;
 
-    public naUser(String name, String surname, String email, int penaltyPoints) {
+    public User(String username, String name, String surname, String email, String password) {
+        this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.role = "basic";
-        this.penaltyPoints = penaltyPoints;
+        this.password = password;
     }
 
-    public naUser(Integer id, String name, String surname, String email) {
-        Id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-    }
-
-    public naUser() {
+    public User() {
 
     }
 
@@ -111,75 +121,83 @@ public class naUser {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getPenaltyPoints() {
-        return penaltyPoints;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPenaltyPoints(int penaltyPoints) {
-        this.penaltyPoints = penaltyPoints;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public List<messages> getSentMessages() {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Messages> getSentMessages() {
         return sentMessages;
     }
 
-    public void setSentMessages(List<messages> sentMessages) {
+    public void setSentMessages(List<Messages> sentMessages) {
         this.sentMessages = sentMessages;
     }
 
-    public List<messages> getReceivedMessages() {
+    public List<Messages> getReceivedMessages() {
         return receivedMessages;
     }
 
-    public void setReceivedMessages(List<messages> receivedMessages) {
+    public void setReceivedMessages(List<Messages> receivedMessages) {
         this.receivedMessages = receivedMessages;
     }
 
-    public List<report> getReortsMade() {
-        return reortsMade;
+    public List<Report> getReportsMade() {
+        return reportsMade;
     }
 
-    public void setReortsMade(List<report> reortsMade) {
-        this.reortsMade = reortsMade;
+    public void setReportsMade(List<Report> reportsMade) {
+        this.reportsMade = reportsMade;
     }
 
-    public List<review> getReportsLeft() {
+    public List<Review> getReportsLeft() {
         return reportsLeft;
     }
 
-    public void setReportsLeft(List<review> reportsLeft) {
+    public void setReportsLeft(List<Review> reportsLeft) {
         this.reportsLeft = reportsLeft;
     }
 
-    public List<review> getReportsConcerning() {
+    public List<Review> getReportsConcerning() {
         return reportsConcerning;
     }
 
-    public void setReportsConcerning(List<review> reportsConcerning) {
+    public void setReportsConcerning(List<Review> reportsConcerning) {
         this.reportsConcerning = reportsConcerning;
     }
 
-    public List<projectApplications> getApplications() {
+    public List<ProjectApplications> getApplications() {
         return applications;
     }
 
-    public void setApplications(List<projectApplications> applications) {
+    public void setApplications(List<ProjectApplications> applications) {
         this.applications = applications;
     }
 
-    public userProfile getProfile() {
+    public UserProfile getProfile() {
         return profile;
     }
 
-    public void setProfile(userProfile profile) {
+    public void setProfile(UserProfile profile) {
         this.profile = profile;
     }
 

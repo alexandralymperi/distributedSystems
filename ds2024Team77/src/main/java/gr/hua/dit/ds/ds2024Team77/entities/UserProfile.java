@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table
-public class userProfile {
+public class UserProfile {
 
 
     @Id
@@ -13,7 +13,7 @@ public class userProfile {
     private Integer Id;
 
     @OneToOne(mappedBy = "profile", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    private naUser user;
+    private User user;
 
     @Column
     private String bio;
@@ -25,22 +25,22 @@ public class userProfile {
     @Size(max = 50)
     private String address;
 
-    public userProfile(naUser user, String bio, String phoneNumber, String address) {
+    public UserProfile(User user, String bio, String phoneNumber, String address) {
         this.user = user;
         this.bio = bio;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
-    public userProfile() {
+    public UserProfile() {
 
     }
 
-    public naUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(naUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

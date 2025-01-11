@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
-public class projectApplications {
+public class ProjectApplications {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,11 +14,11 @@ public class projectApplications {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
-    private project project;
+    private Project project;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private naUser applicant;
+    private User applicant;
 
     @Column
     @NotBlank
@@ -27,14 +27,14 @@ public class projectApplications {
     @Column
     private Date applicationDate;
 
-    public projectApplications(gr.hua.dit.ds.ds2024Team77.entities.project project, naUser applicant, String status, Date applicationDate) {
+    public ProjectApplications(Project project, User applicant, String status, Date applicationDate) {
         this.project = project;
         this.applicant = applicant;
         this.status = "Pending";
         this.applicationDate = applicationDate;
     }
 
-    public projectApplications() {
+    public ProjectApplications() {
 
     }
 
@@ -47,19 +47,19 @@ public class projectApplications {
         this.Id = id;
     }
 
-    public project getProject() {
+    public Project getProject() {
         return project;
     }
 
-    public void setProject(project project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 
-    public naUser getApplicant() {
+    public User getApplicant() {
         return applicant;
     }
 
-    public void setApplicant(naUser applicant) {
+    public void setApplicant(User applicant) {
         this.applicant = applicant;
     }
 
