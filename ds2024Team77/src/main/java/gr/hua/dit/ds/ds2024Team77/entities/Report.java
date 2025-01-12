@@ -3,6 +3,7 @@ package gr.hua.dit.ds.ds2024Team77.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -19,6 +20,11 @@ public class Report {
 
     @Column
     @NotBlank
+    @Size(max = 20)
+    private String title;
+
+    @Column
+    @NotBlank
     private String complaint;
 
     @Column
@@ -29,11 +35,12 @@ public class Report {
     @NotBlank
     private String status;
 
-    public Report(User reporter, String complaint, Date date, String status) {
+    public Report(User reporter, String title, String complaint, Date date, String status) {
         this.reporter = reporter;
+        this.title = title;
         this.complaint = complaint;
         this.date = date;
-        this.status = "Pending";
+        this.status = "PENDING";
     }
 
     public Report() {
@@ -50,6 +57,14 @@ public class Report {
 
     public User getReporter() {
         return reporter;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setReporter(User reporter) {

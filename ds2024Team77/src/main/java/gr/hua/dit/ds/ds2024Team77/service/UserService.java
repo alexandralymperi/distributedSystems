@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import gr.hua.dit.ds.ds2024Team77.repository.UserRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class UserService {
     }
 
     @Transactional
-    public Object getUsers(){ return userRepository.findAll(); }
+    public List<User> getUsers(){ return userRepository.findAll(); }
 
     @Transactional
     public Integer saveUser(User user){
