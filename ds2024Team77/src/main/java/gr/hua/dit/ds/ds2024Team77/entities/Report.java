@@ -10,6 +10,7 @@ import java.util.Date;
 @Entity
 public class Report {
 
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
@@ -35,6 +36,7 @@ public class Report {
     @NotBlank
     private String status;
 
+    //Constructors
     public Report(User reporter, String title, String complaint, Date date, String status) {
         this.reporter = reporter;
         this.title = title;
@@ -47,6 +49,7 @@ public class Report {
 
     }
 
+    //Setters & Getters
     public Integer getId() {
         return Id;
     }

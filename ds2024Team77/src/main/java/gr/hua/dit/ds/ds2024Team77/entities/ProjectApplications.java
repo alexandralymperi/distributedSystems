@@ -8,10 +8,13 @@ import java.util.Date;
 @Entity
 public class ProjectApplications {
 
+
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
 
+    //Mappings
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
@@ -20,6 +23,7 @@ public class ProjectApplications {
     @JoinColumn(name = "user_id", nullable = false)
     private User applicant;
 
+    //More columns
     @Column
     @NotBlank
     private String status;
@@ -27,6 +31,7 @@ public class ProjectApplications {
     @Column
     private Date applicationDate;
 
+    //Constructors
     public ProjectApplications(Project project, User applicant, String status, Date applicationDate) {
         this.project = project;
         this.applicant = applicant;

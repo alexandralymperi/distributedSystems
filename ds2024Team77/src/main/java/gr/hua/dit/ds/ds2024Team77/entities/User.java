@@ -18,6 +18,7 @@ import java.util.Set;
         })
 public class User {
 
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
@@ -44,6 +45,7 @@ public class User {
     @Size(max = 25)
     private String password;
 
+    //Mappings
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
             joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
@@ -77,6 +79,7 @@ public class User {
     @JoinColumn(name = "user_profile_id", referencedColumnName = "Id")
     private UserProfile profile;
 
+    //Constructors
     public User(String username, String name, String surname, String email, String password) {
         this.username = username;
         this.name = name;
@@ -89,6 +92,7 @@ public class User {
 
     }
 
+    //Setters & Getters
     public Integer getId() {
         return Id;
     }
@@ -201,6 +205,7 @@ public class User {
         this.profile = profile;
     }
 
+    //toString method
     @Override
     public String toString() {
         return name + '\'' + surname + '\'';

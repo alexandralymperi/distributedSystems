@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Review {
 
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
@@ -19,6 +20,7 @@ public class Review {
     @Column
     private String comments;
 
+    //Mappings
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "reviewer_id")
     private User reviewer;
@@ -27,6 +29,7 @@ public class Review {
     @JoinColumn(name = "reviewee_id")
     private User reviewee;
 
+    //Constructors
     public Review(Integer id, int value, String comments, User reviewer, User reviewee) {
         Id = id;
         this.value = value;
@@ -39,6 +42,7 @@ public class Review {
 
     }
 
+    //Setters & Getters
     public Integer getId() {
         return Id;
     }

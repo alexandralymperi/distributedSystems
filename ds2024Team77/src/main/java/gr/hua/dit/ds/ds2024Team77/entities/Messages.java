@@ -9,6 +9,8 @@ import java.util.Date;
 @Entity
 public class Messages {
 
+
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
@@ -31,6 +33,7 @@ public class Messages {
     @Column
     private Date date;
 
+    //Constructors
     public Messages(User sender, User receiver, String contents, String status, Date date) {
         this.sender = sender;
         this.receiver = receiver;
@@ -42,6 +45,8 @@ public class Messages {
     public Messages() {
 
     }
+
+    //Getters & Setters
 
     public User getSender() {
         return sender;

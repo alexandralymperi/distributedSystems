@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 public class Project {
 
+    //Columns
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
@@ -28,6 +29,7 @@ public class Project {
     @NotBlank
     private String status;
 
+    //Mappings
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
     private User customer;
@@ -39,6 +41,8 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST})
     private List<ProjectApplications> applications;
 
+
+    //Constructors
     public Project(String title, String description, float pay, String status, User customer, User freelancer) {
         this.title = title;
         this.description = description;
@@ -52,6 +56,7 @@ public class Project {
 
     }
 
+    //Setters & Getters
     public Integer getId() {
         return Id;
     }

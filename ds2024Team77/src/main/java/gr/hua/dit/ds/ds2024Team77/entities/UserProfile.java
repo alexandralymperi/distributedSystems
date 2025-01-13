@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 @Table
 public class UserProfile {
 
-
+    //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
@@ -25,6 +25,7 @@ public class UserProfile {
     @Size(max = 50)
     private String address;
 
+    //Constructors
     public UserProfile(User user, String bio, String phoneNumber, String address) {
         this.user = user;
         this.bio = bio;
@@ -36,6 +37,7 @@ public class UserProfile {
 
     }
 
+    //Setters & Getters
     public User getUser() {
         return user;
     }
