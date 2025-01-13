@@ -50,4 +50,9 @@ public class ReportService {
 
         reportRepository.save(report);
     }
+
+    @Transactional
+    public void deleteReport(Integer id) {
+        reportRepository.deleteById(id);
+    }
 }

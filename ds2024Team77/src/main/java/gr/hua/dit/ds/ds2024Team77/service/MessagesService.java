@@ -29,4 +29,21 @@ public class MessagesService {
     public void saveMessages(Messages messages){
         messagesRepository.save(messages);
     }
+
+    @Transactional
+    public void changeMessageStatusToRead(Integer messageId) {
+        Messages message = messagesRepository.findById(messageId)
+                .orElseThrow(() -> new RuntimeException("Message not found with ID: " + messageId));
+
+        message.setStatus("READ"); // Υποθέτουμε ότι το status είναι String και η τιμή "READ" σημαίνει διαβασμένο.
+        messagesRepository.save(message);
+    }
+
+    @Transactional
+    public void editMessageContents(Integer messageId, Integer senderId, String newContent) {
+        Messages message = messagesRepository.findById(messageId).get();
+
+        message.setContents(newContent);
+        messagesRepository.save(message);
+    }
 }

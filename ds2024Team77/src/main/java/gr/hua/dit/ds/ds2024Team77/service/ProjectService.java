@@ -36,4 +36,38 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
+    @Transactional
+    public List<Project> getProjectsByStatus(String status) {
+        return projectRepository.findProjectsByStatus(status);
+    }
+
+    @Transactional
+    public void deleteProject(Integer id) {
+        projectRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void approveProject(Integer id) {
+        Project project = projectRepository.findById(id).get();
+        project.setStatus("APPROVED");
+        projectRepository.save(project);
+    }
+
+    @Transactional
+    public void changeProjectStatusToOngoing(Integer id) {
+        Project project = projectRepository.findById(id).get();
+        project.setStatus("ONGOING");
+        projectRepository.save(project);
+    }
+
+    @Transactional
+    public List<Project> getProjectsByFreelancer(Integer freelancerId) {
+        return projectRepository.findProjectsByFreelancer(freelancerId);
+    }
+
+    @Transactional
+    public List<Project> getProjectsByOwner(Integer ownerId) {
+        return projectRepository.findProjectsByOwner(ownerId);
+    }
+
 }
