@@ -61,13 +61,13 @@ public class ProjectService {
     }
 
     @Transactional
-    public List<Project> getProjectsByFreelancer(Integer freelancerId) {
-        return projectRepository.findProjectsByFreelancer(freelancerId);
+    public List<Project> getProjectsByFreelancer_Id(Integer freelancerId) {
+        return projectRepository.findProjectsByFreelancer_Id(freelancerId);
     }
 
     @Transactional
-    public List<Project> getProjectsByOwner(Integer ownerId) {
-        return projectRepository.findProjectsByOwner(ownerId);
+    public List<Project> getProjectsBycCustomer(Integer customerId) {
+        return projectRepository.findProjectsByCustomer_Id(customerId);
     }
 
 }

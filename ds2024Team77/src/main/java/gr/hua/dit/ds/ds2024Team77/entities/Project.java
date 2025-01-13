@@ -43,13 +43,21 @@ public class Project {
         this.title = title;
         this.description = description;
         this.pay = pay;
-        this.status = "inactive";
+        this.status = "PENDING_APPROVAL";
         this.customer = customer;
         this.freelancer = freelancer;
     }
 
     public Project() {
 
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public String getTitle() {

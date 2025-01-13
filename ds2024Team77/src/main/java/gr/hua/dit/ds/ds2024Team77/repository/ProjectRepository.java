@@ -8,8 +8,8 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
     List<Project> findProjectsByStatus(String status);
-    List<Project> findProjectsByFreelancer(Integer freelancerId);
-    List<Project> findProjectsByOwner(Integer ownerId);
+    List<Project> findProjectsByFreelancer_Id(Integer freelancerId);
+    List<Project> findProjectsByCustomer_Id(Integer ownerId);
 
 
 

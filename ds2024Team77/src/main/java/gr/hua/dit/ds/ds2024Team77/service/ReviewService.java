@@ -27,6 +27,6 @@ public class ReviewService {
     @Transactional
     public List<Review> getReviews(){ return reviewRepository.findAll(); }
 
-    public List<Review> getReviewsByReviewee(Integer revieweeId){return reviewRepository.getByReviewee(revieweeId);}
+    public List<Review> getReviewsByReviewee(Integer revieweeId){return reviewRepository.getByReviewee_Id(revieweeId);}
 
 }

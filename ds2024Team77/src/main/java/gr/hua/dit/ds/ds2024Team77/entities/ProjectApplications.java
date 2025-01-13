@@ -30,7 +30,7 @@ public class ProjectApplications {
     public ProjectApplications(Project project, User applicant, String status, Date applicationDate) {
         this.project = project;
         this.applicant = applicant;
-        this.status = "Pending";
+        this.status = "PENDING";
         this.applicationDate = applicationDate;
     }
 
