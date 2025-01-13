@@ -1,9 +1,7 @@
 package gr.hua.dit.ds.ds2024Team77.service;
 
 import gr.hua.dit.ds.ds2024Team77.entities.Report;
-import gr.hua.dit.ds.ds2024Team77.entities.Review;
 import gr.hua.dit.ds.ds2024Team77.repository.ReportRepository;
-import gr.hua.dit.ds.ds2024Team77.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +26,28 @@ public class ReportService {
 
     @Transactional
     public List<Report> getReports(){ return reportRepository.findAll(); }
+
+    @Transactional
+    public List<Report> getReportsByStatus(String status) {
+        return reportRepository.findByStatus(status);
+    }
+
+    /*@Transactional
+    public void updateReportToInProcess(Integer id) {
+        Report report = reportRepository.findBy(id);
+
+        report.setStatus("IN_PROCESS");
+
+        reportRepository.save(report);
+    }*/
+
+    @Transactional
+    public void updateReportToInProcess(Integer id) {
+        Report report = reportRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("There is no report with ID: " + id));
+
+        report.setStatus("IN_PROCESS");
+
+        reportRepository.save(report);
+    }
 }

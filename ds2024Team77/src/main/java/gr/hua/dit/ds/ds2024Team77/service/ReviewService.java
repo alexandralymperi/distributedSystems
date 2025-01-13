@@ -1,6 +1,5 @@
 package gr.hua.dit.ds.ds2024Team77.service;
 
-import gr.hua.dit.ds.ds2024Team77.entities.Project;
 import gr.hua.dit.ds.ds2024Team77.entities.Review;
 import gr.hua.dit.ds.ds2024Team77.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
@@ -27,4 +26,7 @@ public class ReviewService {
 
     @Transactional
     public List<Review> getReviews(){ return reviewRepository.findAll(); }
+
+    public List<Review> getReviewsByReviewee(Integer revieweeId){return reviewRepository.getByReviewee(revieweeId);}
+
 }
