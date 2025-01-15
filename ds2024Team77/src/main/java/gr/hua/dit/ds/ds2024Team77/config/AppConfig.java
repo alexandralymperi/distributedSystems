@@ -30,7 +30,7 @@ public class AppConfig {
                 .info(new Info().title("DS EXERCISE LAB 2024 REST API")
                         .description("This API is used in ds2024Team77")
                         .version("1.0").contact(new Contact().name("Team 77")
-                                .email("it2022058@hua.gr").url("https://tsadimas.github.io"))
+                                .email("it2022058@hua.gr").url("https://github.com/alexandralymperi"))
                         .license(new License().name("License of API")
                                 .url("https://swagger.io/license/")));
         return info;

@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.LongFunction;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,8 +33,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Object getUser(Integer user_id){
-        return userRepository.findById(user_id).get();
+    public Optional<User> getUser(Long user_id){
+        return userRepository.findById(user_id);
     }
 
     @Transactional
@@ -64,15 +65,7 @@ public class UserService implements UserDetailsService {
         if(opt.isEmpty()){
             throw new UsernameNotFoundException("User with email: " +username+" was not found.");
         }else{
-            User user = opt.get();
-            return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(),
-                    user.getPassword(),
-                    user.getRoles()
-                            .stream()
-                            .map(role-> new SimpleGrantedAuthority(role.toString()))
-                            .collect(Collectors.toSet())
-            );
+            return UserDetailsImpl.build(opt.get());
         }
 
     }
@@ -88,5 +81,14 @@ public class UserService implements UserDetailsService {
         roleRepository.updateOrInsert(role);
     }
 
+    @Transactional
+    public boolean deleteStudentById(final Long userId){
+        final Optional<User> userOptional = this.userRepository.findById(userId);
+        if(userOptional.isEmpty()){
+            return false;
+        }
+        this.userRepository.deleteById(userId);
+        return true;
+    }
 
 }

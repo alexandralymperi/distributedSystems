@@ -5,13 +5,9 @@ import gr.hua.dit.ds.ds2024Team77.entities.User;
 import gr.hua.dit.ds.ds2024Team77.repository.RoleRepository;
 import gr.hua.dit.ds.ds2024Team77.repository.UserRepository;
 import gr.hua.dit.ds.ds2024Team77.service.UserService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -53,14 +49,14 @@ public class UserController {
     }
 
     @GetMapping("/user/{user_id}")
-    public String showUser(@PathVariable Integer user_id, Model model){
+    public String showUser(@PathVariable Long user_id, Model model){
         model.addAttribute("user", uService.getUser(user_id));
         return "auth/user";
     }
 
     @GetMapping("/user/role/delete/{user_id}/{role_id}")
-    public String deleteRolefromUser(@PathVariable Integer user_id, @PathVariable Integer role_id, Model model){
-        User user = (User) uService.getUser(user_id);
+    public String deleteRolefromUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
+        User user = uService.getUser(user_id).get();
         Role role = roleRepository.findById(role_id).get();
         user.getRoles().remove(role);
         System.out.println("Roles: "+user.getRoles());
@@ -72,8 +68,8 @@ public class UserController {
     }
 
     @GetMapping("/user/role/add/{user_id}/{role_id}")
-    public String addRoletoUser(@PathVariable Integer user_id, @PathVariable Integer role_id, Model model){
-        User user = (User) uService.getUser(user_id);
+    public String addRoletoUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
+        User user = uService.getUser(user_id).get();
         Role role = roleRepository.findById(role_id).get();
         user.getRoles().add(role);
         System.out.println("Roles: "+user.getRoles());
@@ -86,7 +82,7 @@ public class UserController {
 
 
     @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable Integer id, Model model){
+    public String showProfile(@PathVariable Long id, Model model){
         model.addAttribute("student", uService.getUser(id));
         return "student/student-profile";
     }

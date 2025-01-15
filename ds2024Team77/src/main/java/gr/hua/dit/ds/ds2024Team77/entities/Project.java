@@ -12,7 +12,7 @@ public class Project {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private Integer Id;
+    private Long Id;
 
     @Column(nullable = false)
     private String title;
@@ -57,11 +57,11 @@ public class Project {
     }
 
     //Setters & Getters
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 

@@ -45,7 +45,7 @@ public class InitialData {
         roleBasicUser = this.roleRepository.updateOrInsert(roleBasicUser);
         roleFreelancer = this.roleRepository.updateOrInsert(roleFreelancer);
 
-        var existing = this.userRepository.findByUsername("admin").orElse(null);
+        var existing = this.userRepository.findByUsername("Admin").orElse(null);
 
         if(existing == null){
 

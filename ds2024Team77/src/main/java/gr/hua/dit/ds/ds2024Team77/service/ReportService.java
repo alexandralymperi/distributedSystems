@@ -1,11 +1,13 @@
 package gr.hua.dit.ds.ds2024Team77.service;
 
 import gr.hua.dit.ds.ds2024Team77.entities.Report;
+import gr.hua.dit.ds.ds2024Team77.entities.Review;
 import gr.hua.dit.ds.ds2024Team77.repository.ReportRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReportService {
@@ -17,7 +19,7 @@ public class ReportService {
     }
 
     @Transactional
-    public Report getReport(Integer id){return reportRepository.findById(id).get();}
+    public Report getReport(Long id){return reportRepository.findById(id).get();}
 
     @Transactional
     public void saveReport(Report report){
@@ -42,7 +44,7 @@ public class ReportService {
     }*/
 
     @Transactional
-    public void updateReportToInProcess(Integer id) {
+    public void updateReportToInProcess(Long id) {
         Report report = reportRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("There is no report with ID: " + id));
 
@@ -52,7 +54,17 @@ public class ReportService {
     }
 
     @Transactional
-    public void deleteReport(Integer id) {
+    public void deleteReport(Long id) {
         reportRepository.deleteById(id);
+    }
+
+    @Transactional
+    public boolean deleteReportById(final Long reportId){
+        final Optional<Report> userOptional = this.reportRepository.findById(reportId);
+        if(userOptional.isEmpty()){
+            return false;
+        }
+        this.reportRepository.deleteById(reportId);
+        return true;
     }
 }
