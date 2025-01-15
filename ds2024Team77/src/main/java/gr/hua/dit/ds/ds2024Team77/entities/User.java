@@ -22,10 +22,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private Integer Id;
+    private Long Id;
 
     @NotBlank
-    @Size(max=20)
+    @Size(min=3,max=20)
     private String username;
 
     @Column
@@ -38,11 +38,12 @@ public class User {
 
     @Column(unique = true)
     @NotBlank
+    @Size(max=30)
     @Email
     private String email;
 
     @NotBlank
-    @Size(max = 25)
+    //@Size(max = 25)
     private String password;
 
     //Mappings
@@ -92,12 +93,19 @@ public class User {
 
     }
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+
     //Setters & Getters
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 
