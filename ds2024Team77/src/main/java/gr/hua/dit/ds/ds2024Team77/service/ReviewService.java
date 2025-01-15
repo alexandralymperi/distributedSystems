@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -27,6 +28,10 @@ public class ReviewService {
     @Transactional
     public List<Review> getReviews(){ return reviewRepository.findAll(); }
 
-    public List<Review> getReviewsByReviewee(Integer revieweeId){return reviewRepository.getByReviewee_Id(revieweeId);}
+    @Transactional
+    public Optional<Review> getReviewsByReviewee(Integer revieweeId){return reviewRepository.getByReviewee_Id(revieweeId);}
+
+    /*@Transactional
+    public boolean deleteRev*/
 
 }

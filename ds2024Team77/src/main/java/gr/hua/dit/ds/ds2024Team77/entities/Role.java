@@ -19,6 +19,11 @@ public class Role {
 
     }
 
+    public Role(String name) {
+        this.name = name;
+    }
+
+
     //Setters & Getters
     public Integer getΙd() {
         return Ιd;
@@ -26,10 +31,6 @@ public class Role {
 
     public void setΙd(Integer ιd) {
         Ιd = ιd;
-    }
-
-    public Role(String name) {
-        this.name = name;
     }
 
     public Integer getId() {
