@@ -11,7 +11,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private Integer Id;
+    private Long Id;
 
     @Column
     @NotBlank
@@ -30,7 +30,7 @@ public class Review {
     private User reviewee;
 
     //Constructors
-    public Review(Integer id, int value, String comments, User reviewer, User reviewee) {
+    public Review(Long id, int value, String comments, User reviewer, User reviewee) {
         Id = id;
         this.value = value;
         this.comments = comments;
@@ -43,11 +43,11 @@ public class Review {
     }
 
     //Setters & Getters
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 

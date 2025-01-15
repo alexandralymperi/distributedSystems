@@ -13,7 +13,7 @@ public class Report {
     //Columns
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Long Id;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "reporter_id")
@@ -50,11 +50,11 @@ public class Report {
     }
 
     //Setters & Getters
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/reviews")
@@ -42,8 +43,8 @@ public class ReviewController {
     }
 
     @GetMapping("/show-reviews-by")
-    public String showReviewsByReviewee(@PathVariable Review review, List<Review> reviewList, Integer revieweeId, Model model){
-        Review review1 = rService.getReview(revieweeId);
+    public String showReviewsByReviewee(@PathVariable Review review, List<Review> reviewList, Long revieweeId, Model model){
+        Optional<Review> review1 = rService.getReview(revieweeId);
         model.addAttribute("reviewList", review1); //παίζει αντί για reviewList να θέλει Review.
         rRepository.getByReviewee_Id(revieweeId);
         return "reviews";
