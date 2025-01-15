@@ -35,10 +35,10 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User new_user, Model model){
-        //System.out.println("Roles: "+users.getRoles());
-        //Integer id = uService.saveUser(new_user);
-        //String message = "User '"+id+"' saved successfully !";
-        //model.addAttribute("msg", message);
+//        System.out.println("Roles: "+users.getRoles());
+//        Integer id = uService.saveUser(new_user);
+//        String message = "User '"+id+"' saved successfully !";
+//        model.addAttribute("msg", message);
         return "index";
     }
 
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String Save_user(@ModelAttribute("user") User new_user, Model model){
+    public String Save_user(@ModelAttribute("/User") User new_user, Model model){
         System.out.println(new_user);
         users_list.add(new_user);
         model.addAttribute("users", new_user);

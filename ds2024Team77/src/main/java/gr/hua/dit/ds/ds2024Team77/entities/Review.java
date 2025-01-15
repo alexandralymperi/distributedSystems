@@ -83,4 +83,14 @@ public class Review {
         this.reviewee = reviewee;
     }
 
+    @Override
+    public String toString() {
+        return "GetReview{" +
+                ", value ='" + value + '\'' +
+                ", comments ='" + comments + '\'' +
+                ", reviewer =" + reviewer +
+                ", reviewee =" + reviewee +
+                '}';
+    }
+
 }
