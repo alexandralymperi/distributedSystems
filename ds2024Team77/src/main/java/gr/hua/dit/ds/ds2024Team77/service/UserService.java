@@ -6,6 +6,7 @@ import gr.hua.dit.ds.ds2024Team77.repository.RoleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.LongFunction;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
@@ -31,15 +33,15 @@ public class UserService {
     }
 
     @Transactional
-    public User getUser(Integer user_id){
-        return userRepository.findById(user_id).get();
+    public Optional<User> getUser(Long user_id){
+        return userRepository.findById(user_id);
     }
 
     @Transactional
-    public List<User> getUsers(){ return userRepository.findAll(); }
+    public Object getUsers(){ return userRepository.findAll(); }
 
     @Transactional
-    public Integer saveUser(User user){
+    public Long saveUser(User user){
 
         String pswd = user.getPassword();
         String encodedPswd = passwordEncoder.encode(pswd);
@@ -63,23 +65,30 @@ public class UserService {
         if(opt.isEmpty()){
             throw new UsernameNotFoundException("User with email: " +username+" was not found.");
         }else{
-            User user = opt.get();
-            return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(),
-                    user.getPassword(),
-                    user.getRoles()
-                            .stream()
-                            .map(role-> new SimpleGrantedAuthority(role.toString()))
-                            .collect(Collectors.toSet())
-            );
+            return UserDetailsImpl.build(opt.get());
         }
 
     }
 
     @Transactional
-    public Integer updateUser(User user){
+    public Long updateUser(User user){
         user = userRepository.save(user);
         return user.getId();
+    }
+
+    @Transactional
+    public void updateOrInsetRole(Role role){
+        roleRepository.updateOrInsert(role);
+    }
+
+    @Transactional
+    public boolean deleteStudentById(final Long userId){
+        final Optional<User> userOptional = this.userRepository.findById(userId);
+        if(userOptional.isEmpty()){
+            return false;
+        }
+        this.userRepository.deleteById(userId);
+        return true;
     }
 
 }

@@ -38,6 +38,14 @@ public class UserProfile {
     }
 
     //Setters & Getters
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
     public User getUser() {
         return user;
     }

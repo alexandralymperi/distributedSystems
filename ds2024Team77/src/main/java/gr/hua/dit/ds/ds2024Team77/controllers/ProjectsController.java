@@ -37,7 +37,7 @@ public class ProjectsController {
     }
 
     @GetMapping("/assign")
-    public void assignFreelancerToProject(@PathVariable int id, Model model, User freelancer){
+    public void assignFreelancerToProject(@PathVariable Long id, Model model, User freelancer){
 
         Project project = pRepository.findById(id).get();
         project.setFreelancer(freelancer);

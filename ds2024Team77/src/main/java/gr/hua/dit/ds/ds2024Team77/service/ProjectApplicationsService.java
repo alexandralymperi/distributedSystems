@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectApplicationsService {
@@ -23,7 +24,7 @@ public class ProjectApplicationsService {
     }
 
     @Transactional
-    public ProjectApplications getProjectApplication(Integer id){return projectApplicationsRepository.findById(id).get();}
+    public Optional<ProjectApplications> getProjectApplication(Integer id){return (projectApplicationsRepository.findById(id));}
 
     @Transactional
     public void saveProjectApplication(ProjectApplications projectApplications){

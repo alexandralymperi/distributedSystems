@@ -18,6 +18,23 @@
             height: 100vh;
             margin: 0;
         }
+
+        .homepage-btn {
+            position: absolute;
+            top: 20px;          
+            right: 20px;         
+        }
+    
+        .homepage-btn img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+    
+        .homepage-btn img:hover {
+            transform: scale(1.2); 
+        }
         
         .login-container {
             background: rgb(0, 0, 0);
@@ -30,6 +47,7 @@
         }
 
         .login-container h1 {
+            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -82,7 +100,7 @@
         }
 
         p a {
-            color: #ffffff;
+            color: #ff01bb;
         }
 
         p a:hover {
@@ -91,6 +109,10 @@
     </style>
 
     <body>  
+        <div class="homepage-btn">
+            <a href="../../static/index.html"><img src="images/homepage.png" alt="Profile Photo"></a>
+        </div>
+    
         <div class="login-container">
             
             <h1>Login</h1>

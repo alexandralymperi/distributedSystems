@@ -2,12 +2,14 @@ package gr.hua.dit.ds.ds2024Team77.service;
 
 import gr.hua.dit.ds.ds2024Team77.entities.Messages;
 import gr.hua.dit.ds.ds2024Team77.entities.Project;
+import gr.hua.dit.ds.ds2024Team77.entities.Review;
 import gr.hua.dit.ds.ds2024Team77.entities.User;
 import gr.hua.dit.ds.ds2024Team77.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -19,7 +21,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public Project getProject(Integer id){return projectRepository.findById(id).get();}
+    public Optional<Project> getProject(Long id){return projectRepository.findById(id);}
 
     @Transactional
     public void saveProject(Project project){
@@ -30,7 +32,7 @@ public class ProjectService {
     public List<Project> getProjects(){ return projectRepository.findAll(); }
 
     @Transactional
-    public void assignFreelancerToProject(int projectId, User freelancer){
+    public void assignFreelancerToProject(Long projectId, User freelancer){
         Project project = projectRepository.findById(projectId).get();
         project.setFreelancer(freelancer);
         projectRepository.save(project);
@@ -42,31 +44,37 @@ public class ProjectService {
     }
 
     @Transactional
-    public void deleteProject(Integer id) {
-        projectRepository.deleteById(id);
+    public boolean deleteProjectById(final Long projectId){
+        final Optional<Project> userOptional = this.projectRepository.findById(projectId);
+        if(userOptional.isEmpty()){
+            return false;
+        }
+        this.projectRepository.deleteById(projectId);
+        return true;
     }
 
+
     @Transactional
-    public void approveProject(Integer id) {
+    public void approveProject(Long id) {
         Project project = projectRepository.findById(id).get();
         project.setStatus("APPROVED");
         projectRepository.save(project);
     }
 
     @Transactional
-    public void changeProjectStatusToOngoing(Integer id) {
+    public void changeProjectStatusToOngoing(Long id) {
         Project project = projectRepository.findById(id).get();
         project.setStatus("ONGOING");
         projectRepository.save(project);
     }
 
     @Transactional
-    public List<Project> getProjectsByFreelancer_Id(Integer freelancerId) {
+    public List<Project> getProjectsByFreelancer_Id(Long freelancerId) {
         return projectRepository.findProjectsByFreelancer_Id(freelancerId);
     }
 
     @Transactional
-    public List<Project> getProjectsBycCustomer(Integer customerId) {
+    public List<Project> getProjectsBycCustomer(Long customerId) {
         return projectRepository.findProjectsByCustomer_Id(customerId);
     }
 
