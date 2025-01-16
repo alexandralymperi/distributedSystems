@@ -12,6 +12,11 @@ public class SignupRequest {
     private String username;
 
     @NotBlank
+    private String name;
+
+    @NotBlank
+    private String surname;
+    @NotBlank
     @Size(max=30)
     private String email;
 
@@ -27,6 +32,22 @@ public class SignupRequest {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
