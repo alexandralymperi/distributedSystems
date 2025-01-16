@@ -8,108 +8,91 @@ import gr.hua.dit.ds.ds2024Team77.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-@Controller
-@RequestMapping("/users")
-public class UserController {
-    private UserService uService;
-    private UserRepository uRepository;
-    private RoleRepository roleRepository;
-
-
-    public UserController(UserService uService, UserRepository uRepository, RoleRepository roleRepository) {
-        this.uService = uService;
-        this.uRepository = uRepository;
-        this.roleRepository = roleRepository;
-    }
-
-    @GetMapping("/register")
-    public String register(Model model) {
-        User newUser = new User();
-        model.addAttribute("user", newUser);
-        return "auth/register";
-    }
+    @Controller
+    @RequestMapping("/users")
+    public class UserController {
+        private UserService uService;
+        private UserRepository uRepository;
+        private RoleRepository roleRepository;
 
 
-    @PostMapping("/saveUser")
-<<<<<<< HEAD
-    public String saveUser(@ModelAttribute User new_user, Model model){
-//        System.out.println("Roles: "+users.getRoles());
-//        Integer id = uService.saveUser(new_user);
-//        String message = "User '"+id+"' saved successfully !";
-//        model.addAttribute("msg", message);
-=======
-    public String saveUser(@ModelAttribute User user, Model model){
-        System.out.println("Roles: "+user.getRoles());
-        Long id = uService.saveUser(user);
-        String message = "User '"+id+"' saved successfully !";
-        model.addAttribute("msg", message);
->>>>>>> d27933ec047093567ed18a614c5395ad38026601
-        return "index";
-    }
+        public UserController(UserService uService, UserRepository uRepository, RoleRepository roleRepository) {
+            this.uService = uService;
+            this.uRepository = uRepository;
+            this.roleRepository = roleRepository;
+        }
 
-    @GetMapping("/users")
-    public String showUsers(Model model){
-        model.addAttribute("users", uService.getUsers());
-        model.addAttribute("roles", roleRepository.findAll());
-
-        return "auth/users";
-    }
-
-<<<<<<< HEAD
-    @PostMapping("/new")
-    public String Save_user(@ModelAttribute("/User") User new_user, Model model){
-        System.out.println(new_user);
-        users_list.add(new_user);
-        model.addAttribute("users", new_user);
-        return "users_show";
-=======
-    @GetMapping("/user/{user_id}")
-    public String showUser(@PathVariable Long user_id, Model model){
-        model.addAttribute("user", uService.getUser(user_id));
-        return "auth/user";
->>>>>>> d27933ec047093567ed18a614c5395ad38026601
-    }
-
-    @GetMapping("/user/role/delete/{user_id}/{role_id}")
-    public String deleteRolefromUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
-        User user = uService.getUser(user_id).get();
-        Role role = roleRepository.findById(role_id).get();
-        user.getRoles().remove(role);
-        System.out.println("Roles: "+user.getRoles());
-        uService.updateUser(user);
-        model.addAttribute("users", uService.getUsers());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "auth/users";
-
-    }
-
-    @GetMapping("/user/role/add/{user_id}/{role_id}")
-    public String addRoletoUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
-        User user = uService.getUser(user_id).get();
-        Role role = roleRepository.findById(role_id).get();
-        user.getRoles().add(role);
-        System.out.println("Roles: "+user.getRoles());
-        uService.updateUser(user);
-        model.addAttribute("users", uService.getUsers());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "auth/users";
-
-    }
+        @GetMapping("/register")
+        public String register(Model model) {
+            User newUser = new User();
+            model.addAttribute("user", newUser);
+            return "auth/register";
+        }
 
 
-    @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable Long id, Model model){
-        model.addAttribute("student", uService.getUser(id));
-        return "student/student-profile";
-    }
+        @PostMapping("/saveUser")
+        public String saveUser(@ModelAttribute User user, Model model){
+            System.out.println("Roles: "+user.getRoles());
+            Long id = uService.saveUser(user);
+            String message = "User '"+id+"' saved successfully !";
+            model.addAttribute("msg", message);
+            return "index";
+        }
+
+        @GetMapping("/users")
+        public String showUsers(Model model){
+            model.addAttribute("users", uService.getUsers());
+            model.addAttribute("roles", roleRepository.findAll());
+
+            return "auth/users";
+        }
+
+        @GetMapping("/user/{user_id}")
+        public String showUser(@PathVariable Long user_id, Model model){
+            model.addAttribute("user", uService.getUser(user_id));
+            return "auth/user";
+        }
+
+        @GetMapping("/user/role/delete/{user_id}/{role_id}")
+        public String deleteRolefromUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
+            User user = uService.getUser(user_id).get();
+            Role role = roleRepository.findById(role_id).get();
+            user.getRoles().remove(role);
+            System.out.println("Roles: "+user.getRoles());
+            uService.updateUser(user);
+            model.addAttribute("users", uService.getUsers());
+            model.addAttribute("roles", roleRepository.findAll());
+            return "auth/users";
+
+        }
+
+        @GetMapping("/user/role/add/{user_id}/{role_id}")
+        public String addRoletoUser(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
+            User user = uService.getUser(user_id).get();
+            Role role = roleRepository.findById(role_id).get();
+            user.getRoles().add(role);
+            System.out.println("Roles: "+user.getRoles());
+            uService.updateUser(user);
+            model.addAttribute("users", uService.getUsers());
+            model.addAttribute("roles", roleRepository.findAll());
+            return "auth/users";
+
+        }
 
 
-    //    @GetMapping("/{id}")
+        @GetMapping("/profile/{id}")
+        public String showProfile(@PathVariable Long id, Model model){
+            model.addAttribute("student", uService.getUser(id));
+            return "student/student-profile";
+        }
+
+        //    @GetMapping("/{id}")
 //    public String Show_UserProfile(@PathVariable Integer id, Model model){
 //        users user_by_id = getUser(users_list,id);
 //        model.addAttribute("projects", user_by_id);
 //        return "user_show";
 //    }
 
-}
+    }
+
+
