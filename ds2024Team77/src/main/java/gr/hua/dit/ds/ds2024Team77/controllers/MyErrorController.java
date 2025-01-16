@@ -31,10 +31,8 @@ public class MyErrorController implements ErrorController {
 
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(RuntimeException ex, HttpServletRequest request) {
-        // Προσθήκη του μηνύματος λάθους ως attribute στο request
         request.setAttribute("errorMessage", ex.getMessage());
 
-        // Επιστροφή της σελίδας γενικού σφάλματος με πληροφορίες για το exception
         return "error/runtime-error";
     }
 

@@ -102,7 +102,7 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(signUpRequest.getUsername(),signUpRequest.getName(), signUpRequest.getSurname(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -110,27 +110,26 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName("ROLE_USER")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            Role userRole = roleRepository.findByName("ROLE_BASIC")
+                    .orElseThrow(() -> new RuntimeException("Error: Role BASIC is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName("ROLE_ADMIN")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RuntimeException("Error: Role ADMIN is not found."));
                         roles.add(adminRole);
 
                         break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName("ROLE_MODERATOR")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    case "freelancer":
+                        Role modRole = roleRepository.findByName("ROLE_FREELANCER")
+                                .orElseThrow(() -> new RuntimeException("Error: Role FREELANCER is not found."));
                         roles.add(modRole);
-
                         break;
                     default:
-                        Role userRole = roleRepository.findByName("ROLE_USER")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        Role userRole = roleRepository.findByName("ROLE_BASIC")
+                                .orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
                         roles.add(userRole);
                 }
             });

@@ -27,7 +27,7 @@ public class AppConfig {
                         addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes
                         ("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("DS EXERCISE LAB 2024 REST API")
+                .info(new Info().title("DS EXERCISE 2024 REST API")
                         .description("This API is used in ds2024Team77")
                         .version("1.0").contact(new Contact().name("Team 77")
                                 .email("it2022058@hua.gr").url("https://github.com/alexandralymperi"))
