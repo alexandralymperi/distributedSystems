@@ -35,7 +35,7 @@ public class MessagesService {
         Messages message = messagesRepository.findById(messageId)
                 .orElseThrow(() -> new RuntimeException("Message not found with ID: " + messageId));
 
-        message.setStatus("READ"); // Υποθέτουμε ότι το status είναι String και η τιμή "READ" σημαίνει διαβασμένο.
+        message.setStatus("READ");
         messagesRepository.save(message);
     }
 
